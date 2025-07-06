@@ -16,7 +16,8 @@ const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
     origin: '*',
-    methods: ['GET', 'POST']
+    methods: ['GET', 'POST'],
+    credentials:true
   }
 });
 
@@ -25,9 +26,7 @@ app.use(cors());
 app.use(express.json());
 
 // API Routes
-app.use("/",()=>{
-  console.log("Backend is running")
-})
+
 app.use("/api/v1", mainRoute);
 
 // Default Route
