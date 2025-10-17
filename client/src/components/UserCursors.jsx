@@ -8,7 +8,7 @@ const UserCursors = ({ roomId }) => {
   const [cursors, setCursors] = useState({});
   const userIdRef = useRef(uuidv4());
   const colorRef = useRef(COLORS[Math.floor(Math.random() * COLORS.length)]);
-  const socketRef = useRef(null); // Use ref to persist socket
+  const socketRef = useRef(null); 
 
   useEffect(() => {
     socketRef.current = getSocket();
@@ -18,6 +18,7 @@ const UserCursors = ({ roomId }) => {
         roomId,
         userId: userIdRef.current,
         x: e.clientX,
+        
         y: e.clientY,
         color: colorRef.current,
       });

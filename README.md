@@ -1,217 +1,206 @@
-# Collaborative Whiteboard App
+🖊️ Collaborative Whiteboard
 
-A real-time collaborative whiteboard built with the **MERN** stack and **Socket.IO** for live drawing and cursor sharing between users — without any authentication. Just share a room code and draw together!
----
+A real-time collaborative whiteboard app built using the MERN stack and Socket.IO, allowing multiple users to draw together and share their cursors instantly — no login required!
+Just create or join a room with a code and start collaborating live.
 
-## 🚀 Project Overview
+🚀 Overview
 
-This project is a whiteboard web application that allows multiple users to join a shared room and draw together in real time. Users can join rooms by entering simple alphanumeric codes, and all drawing and cursor movements are synchronized across connected users instantly.
+This application enables users to draw simultaneously on a shared canvas.
+Anyone can join by entering a room code — no authentication needed.
+All drawings, strokes, and cursor movements are updated live across every connected user in the same room.
 
----
+⚙️ Tech Stack
+Layer	Technology
+Frontend	React.js
+Backend	Node.js + Express
+Database	MongoDB
+Real-time	Socket.IO
+Styling	Tailwind CSS / CSS
+✨ Key Features
+🧩 Room Management
 
-## ⚙️ Tech Stack
+Join rooms using a 6–8 character alphanumeric code
 
-| Layer         | Technology         |
-|---------------|--------------------|
-| Frontend      | React.js           |
-| Backend       | Node.js + Express  |
-| Database      | MongoDB            |
-| Real-time     | Socket.IO          |
-| Styling       | Tailwind CSS / CSS |
+No login or signup process
 
----
+If a room doesn’t exist, it’s automatically created
 
-## ✨ Features
+🖍️ Drawing Tools
 
-### ✅ Room Management
-- Enter a 6–8 character alphanumeric room code to join
-- No login or registration required
-- If room doesn't exist, it gets created dynamically
+Pencil tool with multiple color options (black, red, blue, green)
 
-### ✅ Drawing Features
-- Pencil tool (black, red, blue, green)
-- Adjustable stroke width with slider
-- Clear canvas button
-- Smooth line drawing using HTML5 Canvas
+Adjustable stroke width via slider
 
-### ✅ Real-time Collaboration
-- Live drawing sync across all connected users
-- Real-time cursor tracking with unique user colors
-- Live user count for each room
-- All tabs stay in sync 
+Clear canvas option
 
----
+Smooth line drawing using HTML5 Canvas
 
-## 🗂️ Folder Structure
+⚡ Real-time Collaboration
 
+Live drawing synchronization across all users
+
+Cursor sharing with unique user colors
+
+Real-time user count displayed per room
+
+Multi-tab synchronization
+
+🗂️ Folder Structure
 project-root/
-├── client/ # React frontend
-│ ├── src/
-│ │ ├── components/
-│ │ │ ├── RoomJoin.jsx
-│ │ │ ├── Whiteboard.jsx
-│ │ │ ├── DrawingCanvas.jsx
-│ │ │ ├── Toolbar.jsx
-│ │ │ └── UserCursors.jsx
-│ │ ├── socket.js
-│ │ └── App.js
-│ └── package.json
-├── server/ # Express + Socket.IO backend
-│ ├── models/
-│ │ └── Room.js
-│ ├── routes/
-│ │ └── roomRoutes.js
-│ ├── socket/
-│ │ └── socketHandlers.js
-│ ├── server.js
-│ └── package.json
+├── client/               # React frontend
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── RoomJoin.jsx
+│   │   │   ├── Whiteboard.jsx
+│   │   │   ├── DrawingCanvas.jsx
+│   │   │   ├── Toolbar.jsx
+│   │   │   └── UserCursors.jsx
+│   │   ├── socket.js
+│   │   └── App.js
+│   └── package.json
+│
+├── server/               # Express + Socket.IO backend
+│   ├── models/
+│   │   └── Room.js
+│   ├── routes/
+│   │   └── roomRoutes.js
+│   ├── socket/
+│   │   └── socketHandlers.js
+│   ├── server.js
+│   └── package.json
+│
 ├── README.md
 
----
+⚙️ Setup Instructions
+🧰 Prerequisites
 
-##  Setup Instructions
+Node.js (v16 or later)
 
-###  Prerequisites
+MongoDB (local or MongoDB Atlas)
 
-- **Node.js** (v16 or above)
-- **MongoDB** (local or Atlas)
-- **npm** or **yarn**
+npm or yarn
 
-----
+🔧 Installation
+1️⃣ Clone the Repository
+git clone https://github.com/your-username/collaborative-whiteboard.git
+cd collaborative-whiteboard
 
-### ⚙️ Installation Steps
-
-#### 1️⃣ Clone the Repository
-
-```bash
-git clone https://github.com/your-username/collab-whiteboard.git
-cd collab-whiteboard
-```
-#### 2️⃣Backend setup
-
-```bash
+2️⃣ Backend Setup
 cd server
 npm install
-```
-Create a .env file inside the server/ directory:<br/>
-```env
-PORT= 8000 <br/>
-MONGODB_URI=your mongoDB connection string
-```
 
-#### 3️⃣Frontend Setup
 
-```bash
+Create a .env file inside the server/ folder:
+
+PORT=8000
+MONGODB_URI=your_mongodb_connection_string
+
+3️⃣ Frontend Setup
 cd ../client
 npm install
-```
-Create a .env file inside the client/ directory:<br/>
-```env
+
+
+Create a .env file inside the client/ folder:
+
 VITE_BACKEND_URL=http://localhost:8000
-```
 
-#### Start the frontend:
-```bash
+▶️ Start the Frontend
 npm run dev
-```
-----
 
-## API Documentation
-| Method | Endpoint             | Description           |
-| ------ | -------------------- | --------------------- |
-| POST   | `/api/rooms/join`    | Join or create a room |
-| GET    | `/api/rooms/:roomId` | Get room details      |
+📡 API Endpoints
+Method	Endpoint	Description
+POST	/api/rooms/join	Join or create a room
+GET	/api/rooms/:roomId	Fetch room details
 
+Example POST Request:
 
-Example POST Request
-```http
 POST /api/rooms/join
 Content-Type: application/json
 
 {
   "roomId": "abc123"
 }
-```
---------
 
-## Socket.IO Events
-### Client → Server
-- join-room — join a room by roomId
-- cursor-move — send mouse position
-- draw-start — begin a drawing stroke
-- draw-move — continue drawing
-- draw-end — finish the stroke
-- clear-canvas — clear the canvas for all users
-### Server → Client
-- user-count — receive updated number of active users
-- cursor-update — receive cursor positions from others
-- draw-start — begin stroke from another user
-- draw-move — receive stroke path data
-- draw-end — end stroke
-- clear-canvas — clear canvas across all users
-  ----
-  
-## Architecture Overview
+🔌 Socket.IO Events
+Client → Server
 
-```scss
+join-room — join a room by ID
+
+cursor-move — send live mouse position
+
+draw-start — begin a drawing stroke
+
+draw-move — continue the stroke
+
+draw-end — finish drawing
+
+clear-canvas — clear canvas for everyone
+
+Server → Client
+
+user-count — update active user count
+
+cursor-update — share other users’ cursor positions
+
+draw-start — broadcast stroke start
+
+draw-move — broadcast ongoing strokes
+
+draw-end — broadcast end of stroke
+
+clear-canvas — clear all users’ canvases
+
+🧠 Architecture Overview
 [Client Browser]
    ↓ Socket.IO
 [React App - Frontend]
-   ↓ API & Socket.IO
+   ↓ API & WebSocket
 [Express Server - Backend]
    ↓
-[MongoDB] (optional for persistence)
-```
------
+[MongoDB Database]
 
-##  Deployment Guide
-1. Deploy Backend
- Use platforms like:
-- vercel
-- Render 
-- Railway
-- [VPS or Docker Hosting]
-- 
-Ensure:
-- WebSocket transport enabled (transports: ['websocket'])
-- CORS properly configured
-- MongoDB URI (Atlas recommended) in environment
+🚀 Deployment Guide
+1️⃣ Backend Deployment
 
-Example .env for production:
+Use platforms like:
 
-```env
+Render
+
+Railway
+
+Vercel (Serverless)
+
+VPS / Docker
+
+Make sure:
+
+WebSockets are enabled (transports: ['websocket'])
+
+CORS is configured properly
+
+MongoDB URI (Atlas recommended) is added to environment variables
+
+Example production .env:
 
 PORT=8000
 MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/whiteboard
-```
-2. Deploy Frontend
+
+2️⃣ Frontend Deployment
+
 Use:
-- Vercel
-- Netlify
 
-Set  ``` env VITE_BACKEND_URL=https://your-backend-url.com ``` in your .env.production.
+Vercel
 
-3. MongoDB Atlas
-- Create a cluster on MongoDB Atlas
-- Whitelist your backend IP
-- Replace local URI with Atlas URI in .env
+Netlify
 
--------
+Set:
 
-## ✅ Status
- - Join/Create room via code
- - Real-time drawing sync
- - Cursor sync
- - Multi-tab sync
- - Clear canvas across all clients
- - Active user tracking
- -----
+VITE_BACKEND_URL=https://your-backend-url.com
 
-📝 License
-MIT © 2025 Amisha
+3️⃣ MongoDB Atlas Setup
 
+Create a cluster on MongoDB Atlas
 
+Whitelist your backend IP or allow access from anywhere
 
-
-
-  
+Replace your local MongoDB URI with the Atlas connection string
